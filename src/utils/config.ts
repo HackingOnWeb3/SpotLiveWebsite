@@ -1,0 +1,1 @@
+export const IS_CONNECT_STORAGE_KEY = '_IS_CONNECT'
