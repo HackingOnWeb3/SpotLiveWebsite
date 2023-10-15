@@ -35,6 +35,13 @@ export const scopeMap = async (contractAddr: string, params: any) => {
   return result
 }
 
+export const getPriceByLive = async (contractAddr: string, params: any) => {
+  console.log({ contractAddr, params })
+  const contract = getContract('SpotLive', contractAddr)
+  const result = await contract.methods.getPriceByLive(...params).call()
+  return result
+}
+
 export const checkIn = async (contractAddr: string, params: any) => {
   return executeMethod('SpotLive', contractAddr, 'checkIn', params)
 }
@@ -42,6 +49,12 @@ export const checkIn = async (contractAddr: string, params: any) => {
 export const addLiveInfo = async (contractAddr: string, params: any) => {
   return executeMethod('SpotLive', contractAddr, 'addLiveInfo', params)
 }
+
+export const mintPASS = async (contractAddr: string, params: any) => {
+  return executeMethod('SpotLive', contractAddr, 'mintPASS', params)
+}
+
+
 
 async function callRpc(method: string, params?: any) {
   var options = {

@@ -461,6 +461,51 @@ const abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'getCheckInList',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'latitude',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'longitude',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'time',
+            type: 'uint256',
+          },
+          {
+            internalType: 'bool',
+            name: 'origin',
+            type: 'bool',
+          },
+          {
+            internalType: 'address',
+            name: 'belongToScope',
+            type: 'address',
+          },
+        ],
+        internalType: 'struct SpotLive.CheckInInfo[]',
+        name: '',
+        type: 'tuple[]',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',

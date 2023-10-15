@@ -1,5 +1,5 @@
 export const IS_CONNECT_STORAGE_KEY = '_IS_CONNECT'
 export const NEXT_PUBLIC_CHAIN_ID = '0x5'
 export const NEXT_PUBLIC_CHAIN_RPC = 'https://rpc.ankr.com/eth_goerli'
-export const SPOTLIVE_CONTRACT = '0x8555585a2C77E45f33aF6162e643a174342AA2bB'
-export const NEXT_PUBLIC_API_HOST = 'qwe'
+export const SPOTLIVE_CONTRACT = '0x1b5fd190B969bdb7Be8D155862F886322407f770'
+export const NEXT_PUBLIC_API_HOST = 'http://192.168.20.10:8080'

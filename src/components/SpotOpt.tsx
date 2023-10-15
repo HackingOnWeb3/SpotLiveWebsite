@@ -3,6 +3,7 @@ import { useState, useRef, useCallback } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 import AddLiveInfo from './AddLiveInfo'
 import CheckIn from './CheckIn'
+import MintPass from './MintPass'
 import UploadSpot from './UploadSpot'
 
 export default function SpotOpt() {
@@ -44,18 +45,7 @@ export default function SpotOpt() {
           </div>
           <div className="flex text-center">
             <UploadSpot changeDisableClose={changeDisableClose} />
-            <div className="w-1/2	cursor-pointer	">
-              <div className="flex justify-center">
-                <Image
-                  className="ml-3"
-                  src="/B_JIDOHAMBAIKI.svg"
-                  alt=""
-                  width={40}
-                  height={40}
-                ></Image>
-              </div>
-              <div>Mint Pass</div>
-            </div>
+            <MintPass changeDisableClose={changeDisableClose} />
           </div>
         </div>
       )}

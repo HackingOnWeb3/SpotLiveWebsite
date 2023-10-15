@@ -1,7 +1,11 @@
-import { post } from './utils'
+import { postFile } from './utils'
 
-export async function test() {
-  return post('/v1/test', {})
+export async function upload(data: any) {
+  return postFile('/upload', data, {
+    // headers: {
+    //   'Content-Type': 'application/json',
+    // },
+  })
 }
 
 export function latlngToAddress(latlng: string) {

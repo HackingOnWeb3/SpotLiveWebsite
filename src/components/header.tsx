@@ -39,7 +39,7 @@ export default function Header() {
                 {chainId === destChainId ? (
                   <>
                     <SpotOpt />
-                    <Badge className="ml-3">Sepolia test</Badge>
+                    <Badge className="ml-3">Test net</Badge>
                   </>
                 ) : (
                   <>

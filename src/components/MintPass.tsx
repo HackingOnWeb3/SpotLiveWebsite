@@ -11,7 +11,13 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from './ui/button'
 import toast from 'react-hot-toast'
-import { checkDistance, checkIn, getCheckInList } from '@/eth/method'
+import {
+  checkDistance,
+  checkIn,
+  getCheckInList,
+  getPriceByLive,
+  mintPASS,
+} from '@/eth/method'
 import { SPOTLIVE_CONTRACT } from '@/utils/config'
 import useAccountStore from '@/store/account'
 import { Label } from './ui/label'
@@ -46,7 +52,7 @@ import { cn } from '@/lib/utils'
 import { upload } from '@/api'
 import useOriginList from '@/hooks/useOriginList'
 
-type IUploadSpotProps = {
+type IMintPassProps = {
   changeDisableClose: (v: boolean) => void
 }
 
@@ -63,7 +69,7 @@ function getGeoLoaction() {
   })
 }
 
-export default function UploadSpot({ changeDisableClose }: IUploadSpotProps) {
+export default function MintPass({ changeDisableClose }: IMintPassProps) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -88,26 +94,33 @@ export default function UploadSpot({ changeDisableClose }: IUploadSpotProps) {
     }
   })
 
+  const [price, setPrice] = useState('0')
+
+  useEffect(() => {
+    if (!account || !selectEdCheckInPoint) {
+      return
+    }
+    getPriceByLive(SPOTLIVE_CONTRACT, [selectEdCheckInPoint, 1])
+      .then((d) => {
+        console.log('price', d)
+        setPrice(d)
+      })
+      .catch((e) => console.log('add live info'))
+  }, [account, open, selectEdCheckInPoint])
+
   useEffect(() => {
     changeDisableClose(open)
   }, [open, changeDisableClose])
 
   const inputRef = useRef<any>()
 
-  async function handleUploadSpot() {
+  async function handleMintPass() {
     setLoading(true)
     try {
-      var data = new FormData()
-      data.append('file', inputRef.current.files[0])
-      data.append('filename', selectEdCheckInPoint)
-      const res = await upload(data)
-      if (res.indexOf('success') > -1) {
-        toast.success('Upload success!')
-      } else {
-        toast.error(res)
-      }
+      await mintPASS(SPOTLIVE_CONTRACT, [selectEdCheckInPoint, 1, ''])
       setLoading(false)
       setOpen(false)
+      toast.success('Mint pass success!')
     } catch (error) {
       console.error(error)
       setLoading(false)
@@ -118,22 +131,22 @@ export default function UploadSpot({ changeDisableClose }: IUploadSpotProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className=" w-1/2	cursor-pointer	">
-        <div className=" ">
+        <div>
           <div className="flex justify-center">
             <Image
               className="ml-3"
-              src="/B_KARAOKE.svg"
+              src="/B_JIDOHAMBAIKI.svg"
               alt=""
               width={40}
               height={40}
             ></Image>
           </div>
-          <div>Upload Spot</div>
+          <div>Mint Pass</div>
         </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Upload Spot</DialogTitle>
+          <DialogTitle>Mint Pass</DialogTitle>
         </DialogHeader>
         {showError && (
           <Alert variant="destructive">
@@ -179,28 +192,21 @@ export default function UploadSpot({ changeDisableClose }: IUploadSpotProps) {
               </SelectContent>
             </Select>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="Live Name" className="text-right">
-              <span className=" text-red-600">*</span>Materials
-            </Label>
-            <Input
-              id="Live Name"
-              type="file"
-              className="col-span-3"
-              placeholder="Please enter"
-              ref={inputRef}
-            />
+
+          <div className=" text-sm text-[#377DFF] mb-0">
+            You will mint 1 Pass cards from the memory for free, to adward your
+            contribution.
           </div>
           <div className=" text-sm text-[#377DFF]">
-            You will receive 1 Pass cards after the memory is created.
+            Current Pass minting price: {price}
           </div>
         </div>
         <DialogFooter>
           <Button variant={'outline'} onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button onClick={handleUploadSpot} disabled={loading}>
-            {loading ? 'Loading...' : 'Upload'}
+          <Button onClick={handleMintPass} disabled={loading}>
+            {loading ? 'Loading...' : 'Mint'}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -198,7 +198,6 @@ export default function AddLiveInfo({ changeDisableClose }: IAddLiveInfoProps) {
             <Select
               value={selectEdCheckInPoint}
               onValueChange={(v: string) => setSelectEdCheckInPoint(v)}
-              id="Check-in point"
               className="col-span-3 w-full"
             >
               <SelectTrigger className="w-[342.5px]">
