@@ -56,14 +56,14 @@ export default function Wallet() {
       )}
       {showDialog && (
         <div className=" w-96 h-[500px] absolute top-14 right-0 border-primary border border-solid p-2 rounded-lg bg-white">
-          <div>
+          <div className='mb-1'>
             <div className="flex items-center">
               <Jazzicon diameter={30} seed={parseInt(account)} />
               <span className="pl-2">{formatAddress(account)}</span>
             </div>
           </div>
-          <div className="flex">
-            Your Name: {username}{' '}
+          <div className="flex items-center mb-1">
+            <span className="text-sm pr-2">Your Name:</span> {username}{' '}
             <Image
               src="/edit-96.png"
               alt="edit"
@@ -76,22 +76,25 @@ export default function Wallet() {
               }}
             ></Image>
           </div>
-          <div className="mb-6">Balance: {balance}</div>
+          <div className="mb-6 flex items-center">
+            <span className='text-sm pr-2'>Balance:</span> {balance}
+          </div>
           <div>
             <Tabs value={selectTab} className="w-full">
               <TabsList className="w-full">
                 <TabsTrigger
                   onClick={() => setSelectTab('Passes')}
                   value="Passes"
+                  className='w-full'
                 >
                   Passes
                 </TabsTrigger>
-                <TabsTrigger
+                {/* <TabsTrigger
                   onClick={() => setSelectTab('Transactions')}
                   value="Transactions"
                 >
                   Transactions
-                </TabsTrigger>
+                </TabsTrigger> */}
               </TabsList>
               <TabsContent value="Passes">
                 <div>passes list</div>

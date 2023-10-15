@@ -163,3 +163,8 @@ export async function switchToChain() {
     // handle other "switch" errors
   }
 }
+
+export function timeToYearMonth(startTime: number) {
+  const d = new Date(Number(startTime))
+  return `${d.getMonth() + 1}.${d.getDate()}`
+}

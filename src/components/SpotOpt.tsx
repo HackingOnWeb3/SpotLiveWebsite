@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import { useState, useRef, useCallback } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
+import AddLiveInfo from './AddLiveInfo'
 import CheckIn from './CheckIn'
+import UploadSpot from './UploadSpot'
 
 export default function SpotOpt() {
   const [showDialog, setShowDialog] = useState(false)
@@ -38,32 +40,10 @@ export default function SpotOpt() {
         <div className=" w-60 absolute top-14 right-0 border-primary border border-solid p-2 rounded-lg bg-white">
           <div className="flex text-center mb-4">
             <CheckIn changeDisableClose={changeDisableClose} />
-            <div className="w-1/2	cursor-pointer	">
-              <div className="flex justify-center">
-                <Image
-                  className="ml-3"
-                  src="/B_MEMO.svg"
-                  alt=""
-                  width={40}
-                  height={40}
-                ></Image>
-              </div>
-              <div>Add Live Info</div>
-            </div>
+            <AddLiveInfo changeDisableClose={changeDisableClose} />
           </div>
           <div className="flex text-center">
-            <div className=" w-1/2 cursor-pointer		">
-              <div className="flex justify-center">
-                <Image
-                  className="ml-3"
-                  src="/B_KARAOKE.svg"
-                  alt=""
-                  width={40}
-                  height={40}
-                ></Image>
-              </div>
-              <div>Upload Spot</div>
-            </div>
+            <UploadSpot changeDisableClose={changeDisableClose} />
             <div className="w-1/2	cursor-pointer	">
               <div className="flex justify-center">
                 <Image

@@ -217,6 +217,50 @@ const abi = [
   {
     inputs: [
       {
+        internalType: 'string',
+        name: 'userName',
+        type: 'string',
+      },
+      {
+        internalType: 'address',
+        name: 'scope',
+        type: 'address',
+      },
+      {
+        internalType: 'string',
+        name: 'scopename',
+        type: 'string',
+      },
+      {
+        internalType: 'uint256',
+        name: 'startTime',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'endTime',
+        type: 'uint256',
+      },
+      {
+        internalType: 'string',
+        name: 'description',
+        type: 'string',
+      },
+    ],
+    name: 'addLiveInfo',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'address',
         name: 'to',
         type: 'address',
@@ -420,6 +464,104 @@ const abi = [
     inputs: [
       {
         internalType: 'address',
+        name: 'user',
+        type: 'address',
+      },
+    ],
+    name: 'getCheckInList',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'latitude',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'longitude',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'time',
+            type: 'uint256',
+          },
+          {
+            internalType: 'bool',
+            name: 'origin',
+            type: 'bool',
+          },
+          {
+            internalType: 'address',
+            name: 'belongToScope',
+            type: 'address',
+          },
+        ],
+        internalType: 'struct SpotLive.CheckInInfo[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'int256',
+        name: 'lat1',
+        type: 'int256',
+      },
+      {
+        internalType: 'int256',
+        name: 'lon1',
+        type: 'int256',
+      },
+      {
+        internalType: 'int256',
+        name: 'lat2',
+        type: 'int256',
+      },
+      {
+        internalType: 'int256',
+        name: 'lon2',
+        type: 'int256',
+      },
+    ],
+    name: 'getDistance',
+    outputs: [
+      {
+        internalType: 'int256',
+        name: '',
+        type: 'int256',
+      },
+    ],
+    stateMutability: 'pure',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getOriginList',
+    outputs: [
+      {
+        internalType: 'address[]',
+        name: '',
+        type: 'address[]',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
         name: 'live',
         type: 'address',
       },
@@ -459,6 +601,45 @@ const abi = [
         internalType: 'bool',
         name: '',
         type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'liveEvenInfoMap',
+    outputs: [
+      {
+        internalType: 'string',
+        name: 'name',
+        type: 'string',
+      },
+      {
+        internalType: 'string',
+        name: 'symbol',
+        type: 'string',
+      },
+      {
+        internalType: 'uint256',
+        name: 'startTime',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'endTime',
+        type: 'uint256',
+      },
+      {
+        internalType: 'string',
+        name: 'description',
+        type: 'string',
       },
     ],
     stateMutability: 'view',

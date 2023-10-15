@@ -1,4 +1,5 @@
 export const IS_CONNECT_STORAGE_KEY = '_IS_CONNECT'
-export const NEXT_PUBLIC_CHAIN_ID = '0x8274f'
-export const NEXT_PUBLIC_CHAIN_RPC = 'https://scroll-sepolia.public.blastapi.io'
-export const SPOTLIVE_CONTRACT = '0xCB66E1621A0ED2e2aFE24bb8E34766bB011AD14C'
+export const NEXT_PUBLIC_CHAIN_ID = '0x5'
+export const NEXT_PUBLIC_CHAIN_RPC = 'https://rpc.ankr.com/eth_goerli'
+export const SPOTLIVE_CONTRACT = '0x8555585a2C77E45f33aF6162e643a174342AA2bB'
+export const NEXT_PUBLIC_API_HOST = 'qwe'

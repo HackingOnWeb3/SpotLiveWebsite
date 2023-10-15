@@ -4,17 +4,43 @@ import { NEXT_PUBLIC_CHAIN_RPC } from '@/utils/config'
 
 export const checkDistance = async (contractAddr: string, params: any) => {
   const contract = getContract('SpotLive', contractAddr)
-  try {
-    const result = await contract.methods.checkDistance(...params).call()
-    return result
-  } catch (error) {
-    console.error('checkDistance', error)
-    return false
-  }
+  const result = await contract.methods.checkDistance(...params).call()
+  return result
+}
+export const getCheckInList = async (contractAddr: string, params: any) => {
+  console.log({contractAddr, params})
+  const contract = getContract('SpotLive', contractAddr)
+  const result = await contract.methods.getCheckInList(...params).call()
+  return result
+}
+
+export const getOriginList = async (contractAddr: string, params: any) => {
+  console.log({ contractAddr, params })
+  const contract = getContract('SpotLive', contractAddr)
+  const result = await contract.methods.getOriginList(...params).call()
+  return result
+}
+
+export const liveEvenInfoMap = async (contractAddr: string, params: any) => {
+  console.log({ contractAddr, params })
+  const contract = getContract('SpotLive', contractAddr)
+  const result = await contract.methods.liveEvenInfoMap(...params).call()
+  return result
+}
+
+export const scopeMap = async (contractAddr: string, params: any) => {
+  console.log({ contractAddr, params })
+  const contract = getContract('SpotLive', contractAddr)
+  const result = await contract.methods.scopeMap(...params).call()
+  return result
 }
 
 export const checkIn = async (contractAddr: string, params: any) => {
   return executeMethod('SpotLive', contractAddr, 'checkIn', params)
+}
+
+export const addLiveInfo = async (contractAddr: string, params: any) => {
+  return executeMethod('SpotLive', contractAddr, 'addLiveInfo', params)
 }
 
 async function callRpc(method: string, params?: any) {
@@ -42,10 +68,10 @@ async function executeMethod(
   methodName: string,
   params: any
 ) {
+  console.log('params', params, methodName)
   const contract = getContract(contractName, contractAddr)
   const web3 = getWeb3()
   const functionSelector = contract.methods[methodName](...params).encodeABI()
-
   let estimatedGas = await web3.eth.estimateGas({
     to: contractAddr,
     data: functionSelector,

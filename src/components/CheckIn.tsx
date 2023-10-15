@@ -47,7 +47,7 @@ export default function CheckIn({ changeDisableClose }: ICheckInProps) {
     try {
       const { coords } = await getGeoLoaction()
 
-      let address = await checkDistance(SPOTLIVE_CONTRACT, [
+      const address = await checkDistance(SPOTLIVE_CONTRACT, [
         Math.floor(coords.latitude * 10 ** 6),
         Math.floor(coords.longitude * 10 ** 6),
       ])
@@ -59,6 +59,9 @@ export default function CheckIn({ changeDisableClose }: ICheckInProps) {
         Date.now(),
         address === '0x0000000000000000000000000000000000000000',
       ])
+      setLoading(false)
+      setOpen(false)
+      toast.success('Check in success!')
     } catch (error) {
       console.error(error)
       setLoading(false)
