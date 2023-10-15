@@ -2,22 +2,19 @@ import useAccountStore from '@/store/account'
 import { getContract, getWeb3 } from '.'
 import { NEXT_PUBLIC_CHAIN_RPC } from '@/utils/config'
 
-export const test = async (
-  contractAddr: string,
-  account: string
-) => {
-  const contract = getContract('test', contractAddr)
+export const checkDistance = async (contractAddr: string, params: any) => {
+  const contract = getContract('SpotLive', contractAddr)
   try {
-    const result: any = await contract.methods.test().call()
-    return result.toLowerCase() === account.toLowerCase()
+    const result = await contract.methods.checkDistance(...params).call()
+    return result
   } catch (error) {
-    console.error('test', error)
+    console.error('checkDistance', error)
     return false
   }
 }
 
-export const setTest = async (contractAddr: string, params: any) => {
-  return executeMethod('test', contractAddr, 'setTest', params)
+export const checkIn = async (contractAddr: string, params: any) => {
+  return executeMethod('SpotLive', contractAddr, 'checkIn', params)
 }
 
 async function callRpc(method: string, params?: any) {
@@ -54,12 +51,14 @@ async function executeMethod(
     data: functionSelector,
     from: useAccountStore.getState().account,
   })
-  const maxPriorityFeePerGasVal = await callRpc('eth_maxPriorityFeePerGas')
-
+  // const maxPriorityFeePerGasVal = await callRpc('eth_maxPriorityFeePerGas')
+  const gasPrice = await web3.eth.getGasPrice()
+  console.log(gasPrice.toString())
   const result = await contract.methods[methodName](...params).send({
     gas: Math.floor(Number(estimatedGas) * 1.2),
     from: useAccountStore.getState().account,
-    maxPriorityFeePerGas: maxPriorityFeePerGasVal,
+    gasPrice: gasPrice.toString(),
+    // maxPriorityFeePerGas: maxPriorityFeePerGasVal,
   })
   useAccountStore.getState().toggleBalance()
   return result

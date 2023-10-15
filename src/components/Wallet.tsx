@@ -1,46 +1,38 @@
-import useAccountStore from '@/store/account';
-import { Button } from './ui/button';
-import { formatAddress } from '@/utils';
+import useAccountStore from '@/store/account'
+import { Button } from './ui/button'
+import { formatAddress } from '@/utils'
 
-import { useState, useRef, useEffect } from 'react';
-import { useOnClickOutside } from 'usehooks-ts';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import useTransactionStore from '@/store/transactionStore';
-import Image from 'next/image';
-import Jazzicon from 'react-jazzicon';
-import useUserName from '@/hooks/useUserName';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useState, useRef, useEffect } from 'react'
+import { useOnClickOutside } from 'usehooks-ts'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import useTransactionStore from '@/store/transactionStore'
+import Image from 'next/image'
+import Jazzicon from 'react-jazzicon'
+import useUserName from '@/hooks/useUserName'
+import EditUsernameDialog from './EditUsernameDialog'
 
 export default function Wallet() {
-  const { account, balance } = useAccountStore((state) => state);
+  const { account, balance } = useAccountStore((state) => state)
 
   const transList = useTransactionStore((state) =>
     state.transList.filter((item) => item)
-  );
+  )
 
-  const [showDialog, setShowDialog] = useState(true);
+  const [showDialog, setShowDialog] = useState(false)
 
-  const ref = useRef(null);
+  const ref = useRef(null)
 
-  const handleClickOutside = () => {
-    setShowDialog(false);
-  };
+  const handleClickOutside = (event: MouseEvent) => {
+    setShowDialog(false)
+  }
 
-  useOnClickOutside(ref, handleClickOutside);
+  useOnClickOutside(ref, handleClickOutside)
 
-  const [selectTab, setSelectTab] = useState('Passes');
+  const [selectTab, setSelectTab] = useState('Passes')
 
-  const { username, setUsername } = useUserName();
+  const { username, setUsername } = useUserName()
+
+  const [showEeditUsername, setEditUsername] = useState(false)
 
   return (
     <div className=" relative" ref={ref}>
@@ -48,13 +40,22 @@ export default function Wallet() {
         className="ml-3"
         variant="outline"
         onClick={() => {
-          setShowDialog((c) => !c);
+          setShowDialog((c) => !c)
         }}
       >
         {formatAddress(account)}
       </Button>
+      {showEeditUsername && (
+        <EditUsernameDialog
+          username={username}
+          close={(v: string) => {
+            setUsername(v)
+            setEditUsername(false)
+          }}
+        />
+      )}
       {showDialog && (
-        <div className=" w-96 h-[500px] absolute top-14 right-0 border-primary border border-solid p-2 rounded-lg">
+        <div className=" w-96 h-[500px] absolute top-14 right-0 border-primary border border-solid p-2 rounded-lg bg-white">
           <div>
             <div className="flex items-center">
               <Jazzicon diameter={30} seed={parseInt(account)} />
@@ -63,34 +64,17 @@ export default function Wallet() {
           </div>
           <div className="flex">
             Your Name: {username}{' '}
-            <Dialog>
-              <DialogTrigger asChild>
-                <Image
-                  src="/edit-96.png"
-                  alt="edit"
-                  width={20}
-                  height={20}
-                  className=" cursor-pointer"
-                ></Image>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>Update username</DialogTitle>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Input
-                      id="name"
-                      value={username}
-                      className="col-span-3"
-                    />
-                  </div>
-                </div>
-                <DialogFooter>
-                  <Button type="submit">Save</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            <Image
+              src="/edit-96.png"
+              alt="edit"
+              width={20}
+              height={20}
+              className=" cursor-pointer"
+              onClick={() => {
+                setShowDialog(false)
+                setEditUsername(true)
+              }}
+            ></Image>
           </div>
           <div className="mb-6">Balance: {balance}</div>
           <div>
@@ -150,7 +134,7 @@ export default function Wallet() {
                               <div className=" text-red-500">{item.status}</div>
                             )}
                           </div>
-                        );
+                        )
                       })}
                     </div>
                   )}
@@ -161,5 +145,5 @@ export default function Wallet() {
         </div>
       )}
     </div>
-  );
+  )
 }

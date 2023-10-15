@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@metamask/jazzicon": "^2.0.0",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -23,6 +24,7 @@
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
     "react-jazzicon": "^1.0.4",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",

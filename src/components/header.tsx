@@ -27,8 +27,10 @@ export default function Header() {
     connectToWallect();
   }
 
+  console.log('chainId', chainId)
+
   return (
-    <header className="p-10">
+    <header className="p-10 fixed w-full z-50	">
       <div>
         <div className="flex justify-end">
           <>
@@ -67,5 +69,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  );
+  )
 }

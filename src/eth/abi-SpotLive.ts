@@ -356,6 +356,11 @@ const abi = [
         name: 'origin',
         type: 'bool',
       },
+      {
+        internalType: 'address',
+        name: 'belongToScope',
+        type: 'address',
+      },
     ],
     stateMutability: 'view',
     type: 'function',
@@ -486,6 +491,50 @@ const abi = [
         internalType: 'uint256',
         name: '',
         type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'memberCheckList',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'latitude',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'longitude',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'time',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: 'origin',
+        type: 'bool',
+      },
+      {
+        internalType: 'address',
+        name: 'belongToScope',
+        type: 'address',
       },
     ],
     stateMutability: 'view',
@@ -645,6 +694,11 @@ const abi = [
         internalType: 'bool',
         name: 'origin',
         type: 'bool',
+      },
+      {
+        internalType: 'address',
+        name: 'belongToScope',
+        type: 'address',
       },
     ],
     stateMutability: 'view',
@@ -809,5 +863,5 @@ const abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-];
-export default abi;
+]
+export default abi
