@@ -3,8 +3,13 @@ import { useIsClient } from 'usehooks-ts';
 import { Button } from './ui/button';
 import { formatAddress, switchToChain } from '@/utils';
 import { getEthereum } from '@/eth';
+import { NEXT_PUBLIC_CHAIN_ID } from '@/utils/config';
+import Image from 'next/image';
+import { Badge } from './ui/badge';
+import SpotOpt from './SpotOpt';
+import Wallet from './Wallet';
 
-const destChainId = process.env.NEXT_PUBLIC_CHAIN_ID || '';
+const destChainId = NEXT_PUBLIC_CHAIN_ID;
 
 export default function Header() {
   const { connectLoading, account, chainId, connectToWallect } =
@@ -24,21 +29,40 @@ export default function Header() {
 
   return (
     <header className="p-10">
-      <div className="flex justify-between">
-        <div className="flex">
-          <div>
+      <div>
+        <div className="flex justify-end">
+          <>
             {account && (
-              <div>
+              <>
                 {chainId === destChainId ? (
-                  'ok'
+                  <>
+                    <SpotOpt />
+                    <Badge className="ml-3">Sepolia test</Badge>
+                  </>
                 ) : (
-                  <div onClick={() => switchToChain()}>unsupported.</div>
+                  <>
+                    <Button
+                      className="ml-3"
+                      onClick={() => switchToChain()}
+                      variant={'destructive'}
+                    >
+                      Wrong network...
+                    </Button>
+                  </>
                 )}
-              </div>
+              </>
             )}
-          </div>
+          </>
           {isClient && (
-            <>{account ? formatAddress(account) : <Button>Connect</Button>}</>
+            <>
+              {account ? (
+                <Wallet></Wallet>
+              ) : (
+                <Button className="ml-3" onClick={connect}>
+                  Connect
+                </Button>
+              )}
+            </>
           )}
         </div>
       </div>

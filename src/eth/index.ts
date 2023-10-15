@@ -1,5 +1,6 @@
 import Web3 from 'web3'
 import tokenAbi from './abi-token'
+import spotLiveAbi from './abi-SpotLive'
 
 export let web3: Web3
 
@@ -43,6 +44,11 @@ export const getContract = (name: string, tokenAddr: string) => {
 
   if (name === 'token') {
     contract = new web3.eth.Contract(tokenAbi as any, tokenAddr)
+    return contract
+  }
+
+  if (name === 'SpotLive') {
+    contract = new web3.eth.Contract(spotLiveAbi as any, tokenAddr)
     return contract
   }
 

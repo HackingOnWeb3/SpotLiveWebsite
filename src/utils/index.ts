@@ -1,5 +1,6 @@
 import { getEthereum, getWeb3, isDev } from '@/eth'
 import BigNumber from 'bignumber.js'
+import { NEXT_PUBLIC_CHAIN_ID, NEXT_PUBLIC_CHAIN_RPC } from './config'
 
 export const getRandom = (length: string | number): number => {
   const num = Math.random() * Number(length)
@@ -124,9 +125,9 @@ export function copyToClipboard(text: string) {
 }
 
 export async function switchToChain() {
-  const toChainId = process.env.NEXT_PUBLIC_CHAIN_ID
-  const toChainName = 'TEST'
-  const toChainRpc = process.env.NEXT_PUBLIC_CHAIN_RPC
+  const toChainId = NEXT_PUBLIC_CHAIN_ID
+  const toChainName = 'sepolia test'
+  const toChainRpc = NEXT_PUBLIC_CHAIN_RPC
   const ethereum = getEthereum()
   try {
     await ethereum.request({

@@ -1,5 +1,6 @@
 import useAccountStore from '@/store/account'
 import { getContract, getWeb3 } from '.'
+import { NEXT_PUBLIC_CHAIN_RPC } from '@/utils/config'
 
 export const test = async (
   contractAddr: string,
@@ -32,7 +33,7 @@ async function callRpc(method: string, params?: any) {
       id: 1,
     }),
   }
-  const rpc = process.env.NEXT_PUBLIC_CHAIN_RPC || ''
+  const rpc = NEXT_PUBLIC_CHAIN_RPC
   const res = await fetch(rpc, options)
   const response = await res.json()
   return response.result
