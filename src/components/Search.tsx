@@ -15,11 +15,6 @@ export default function Search() {
           onFocus={() => setFocus(true)}
           onBlur={() => setTimeout(() => {
             setFocus(false)
-            if (window._map) {
-              const center = new window.google.maps.LatLng(30.233629, 120.193728)
-              // using global variable:
-              window._map.panTo(center)
-            }
           }, 300)}
           placeholder="Search live"
           className="w-[300px]"
@@ -31,7 +26,16 @@ export default function Search() {
           <div className="border-b pb-2 mb-2 text-gray-400">
             Hot in this area
           </div>
-          <p className="flex justify-between cursor-pointer">
+          <p className="flex justify-between cursor-pointer" onClick={() => {
+            if (window._map) {
+              const center = new window.google.maps.LatLng(
+                30.233629,
+                120.193728
+              )
+              // using global variable:
+              window._map.panTo(center)
+            }
+          }}>
             <span>ETH Hangzhou</span>
             <span>100 Peoples</span>
           </p>
