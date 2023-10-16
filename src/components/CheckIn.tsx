@@ -47,17 +47,18 @@ export default function CheckIn({ changeDisableClose }: ICheckInProps) {
     try {
       const { coords } = await getGeoLoaction()
 
-      const address = await checkDistance(SPOTLIVE_CONTRACT, [
-        Math.floor(coords.latitude * 10 ** 6),
-        Math.floor(coords.longitude * 10 ** 6),
-      ])
+      // const address = await checkDistance(SPOTLIVE_CONTRACT, [
+      //   Math.floor(coords.latitude * 10 ** 6),
+      //   Math.floor(coords.longitude * 10 ** 6),
+      // ])
 
       await checkIn(SPOTLIVE_CONTRACT, [
         account,
         Math.floor(coords.latitude * 10 ** 6),
         Math.floor(coords.longitude * 10 ** 6),
         Date.now(),
-        address === '0x0000000000000000000000000000000000000000',
+        true
+        // address === '0x0000000000000000000000000000000000000000',
       ])
       setLoading(false)
       setOpen(false)

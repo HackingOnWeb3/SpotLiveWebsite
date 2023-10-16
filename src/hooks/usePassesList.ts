@@ -14,6 +14,7 @@ type PassItem = {
   name: string
   key: string
   time: string
+  scopId: string
 }
 
 export default function usePassesList() {
@@ -35,11 +36,13 @@ export default function usePassesList() {
             name: '',
             time: '',
             key: item,
+            scopId: '',
           }
 
           tokenIdToScope(SPOTLIVE_CONTRACT, [item])
             .then((scopId) => {
               console.log('scopId', scopId)
+              res[item].scopId = scopId
               liveEvenInfoMap(SPOTLIVE_CONTRACT, [scopId])
                 .then((liveInfo) => {
                   console.log('liveInfo', liveInfo)

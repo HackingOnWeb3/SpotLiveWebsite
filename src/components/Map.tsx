@@ -34,7 +34,9 @@ export default function Map() {
       return
     }
     console.log('originList', originList)
-    originList.forEach((item: any) => {
+    const tmpList = [...originList]
+    tmpList.length = 1
+    tmpList.forEach((item: any) => {
       const circle = new window.google.maps.Circle({
         strokeColor: '#1677ff',
         strokeOpacity: 0.8,

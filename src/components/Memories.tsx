@@ -29,7 +29,7 @@ export default function Memories() {
   return (
     <div>
       <p className=" text-left">Pick your Live Pass here</p>
-      <div className="flex">
+      <div className="flex items-center">
         <Select
           value={selectEdCheckInPoint}
           onValueChange={(v: string) => setSelectEdCheckInPoint(v)}
@@ -50,7 +50,7 @@ export default function Memories() {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <span>{num} Questions Left to ask</span>
+        <span className=" ml-2">{num} Questions Left to ask</span>
       </div>
       <ComponentChat></ComponentChat>
     </div>

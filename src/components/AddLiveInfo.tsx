@@ -11,7 +11,12 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import toast from 'react-hot-toast'
-import { addLiveInfo, checkDistance, checkIn, getCheckInList } from '@/eth/method'
+import {
+  addLiveInfo,
+  checkDistance,
+  checkIn,
+  getCheckInList,
+} from '@/eth/method'
 import { SPOTLIVE_CONTRACT } from '@/utils/config'
 import useAccountStore from '@/store/account'
 import { Label } from './ui/label'
@@ -100,13 +105,17 @@ export default function AddLiveInfo({ changeDisableClose }: IAddLiveInfoProps) {
     }
     getCheckInList(SPOTLIVE_CONTRACT, [account])
       .then((d) => {
-        setLiveInPointList(d.map((item: any) => {
-          return {
-            label: `${Number(item[0]) / 10 ** 6}, ${Number(item[1]) / 10 ** 6}`,
-            key: item[4],
-            value: item[4],
-          }
-        }))
+        setLiveInPointList(
+          d.map((item: any, index: number) => {
+            return {
+              label: `${Number(item[0]) / 10 ** 6}, ${
+                Number(item[1]) / 10 ** 6
+              }`,
+              key: item[4] + '_' + index,
+              value: item[4] + '_' + index,
+            }
+          })
+        )
       })
       .catch((e) => console.log('add live info'))
   }, [account, open])
@@ -131,11 +140,11 @@ export default function AddLiveInfo({ changeDisableClose }: IAddLiveInfoProps) {
     try {
       await addLiveInfo(SPOTLIVE_CONTRACT, [
         username,
-        selectEdCheckInPoint,
+        selectEdCheckInPoint.replace(/_\d$/, ''),
         liveName,
         date?.from?.getTime(),
         date?.to?.getTime(),
-        description
+        description,
       ])
       setLoading(false)
       setOpen(false)
@@ -197,22 +206,22 @@ export default function AddLiveInfo({ changeDisableClose }: IAddLiveInfoProps) {
             </Label>
             <Select
               value={selectEdCheckInPoint}
-              onValueChange={(v: string) => setSelectEdCheckInPoint(v)}
+              onValueChange={(v: string) => {
+                setSelectEdCheckInPoint(v)
+              }}
               className="col-span-3 w-full"
             >
               <SelectTrigger className="w-[342.5px]">
                 <SelectValue placeholder="Please select" />
               </SelectTrigger>
               <SelectContent>
-                <SelectGroup>
-                  {liveInPointList.map((item) => {
-                    return (
-                      <SelectItem key={item.key} value={item.value}>
-                        {item.label}
-                      </SelectItem>
-                    )
-                  })}
-                </SelectGroup>
+                {liveInPointList.map((item) => {
+                  return (
+                    <SelectItem key={item.key} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  )
+                })}
               </SelectContent>
             </Select>
           </div>
