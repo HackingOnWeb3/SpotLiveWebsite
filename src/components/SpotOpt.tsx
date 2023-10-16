@@ -38,7 +38,7 @@ export default function SpotOpt() {
         height={40}
       ></Image>
       {showDialog && (
-        <div className=" w-60 absolute top-14 right-0 border-primary border border-solid p-2 rounded-lg bg-white">
+        <div className=" w-60 absolute top-14 right-0 border-primary border border-solid p-2 rounded-lg bg-white shadow-lg">
           <div className="flex text-center mb-4">
             <CheckIn changeDisableClose={changeDisableClose} />
             <AddLiveInfo changeDisableClose={changeDisableClose} />

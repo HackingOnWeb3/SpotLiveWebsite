@@ -4,6 +4,7 @@ import { Loader } from '@googlemaps/js-api-loader'
 import { useEffect, useState } from 'react'
 import MemoriesDialog from './MemoriesDialog'
 import OngoingDialog from './OngoingDialog'
+import Search from './Search'
 import { Label } from './ui/label'
 
 function randomIntFromInterval(min: number, max: number) {
@@ -116,6 +117,7 @@ export default function Map() {
         fullscreenControl: false,
         mapTypeControl: false,
       })
+      window._map = map
       const heatmapDataTmp: any = []
       for (let index = 0; index < 20; index++) {
         const num1 = randomIntFromInterval(-100, 100) / 100000

@@ -11,6 +11,7 @@ import Jazzicon from 'react-jazzicon'
 import useUserName from '@/hooks/useUserName'
 import EditUsernameDialog from './EditUsernameDialog'
 import usePassesList from '@/hooks/usePassesList'
+import MemoriesDialog from './MemoriesDialog'
 
 export default function Wallet() {
   const { account, balance } = useAccountStore((state) => state)
@@ -37,6 +38,8 @@ export default function Wallet() {
 
   const passesList = usePassesList()
 
+  const [open, onOpenChange] = useState(false)
+
   return (
     <div className=" relative" ref={ref}>
       <Button
@@ -57,8 +60,9 @@ export default function Wallet() {
           }}
         />
       )}
+      <MemoriesDialog open={open} onOpenChange={onOpenChange} />
       {showDialog && (
-        <div className=" w-96 h-[500px] absolute top-14 right-0 border-primary border border-solid p-2 rounded-lg bg-white">
+        <div className=" w-96 h-[500px] absolute top-14 right-0 border-primary border border-solid p-2 rounded-lg bg-white shadow-lg">
           <div className="mb-1">
             <div className="flex items-center">
               <Jazzicon diameter={30} seed={parseInt(account)} />
@@ -111,12 +115,19 @@ export default function Wallet() {
                             key={item.key}
                             className="mb-2 bg-gray-300 rounded p-2"
                           >
-                            <div className="mb-2">{item.name} #{item.key}</div>
+                            <div className="mb-2">
+                              {item.name} #{item.key}
+                            </div>
                             <div className="mb-2">
                               {item.num1}/{item.num2} question left
                             </div>
                             <div>
-                              <Button className=" mr-2">Ask</Button>
+                              <Button
+                                className=" mr-2"
+                                onClick={() => onOpenChange(true)}
+                              >
+                                Ask
+                              </Button>
                               <Button disabled>Recharge</Button>
                             </div>
                           </div>
