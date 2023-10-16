@@ -69,8 +69,6 @@ export default function UploadSpot({ changeDisableClose }: IUploadSpotProps) {
 
   const [showError, setShowError] = useState('')
 
-  const account = useAccountStore((state) => state.account)
-
   // live Info
   const [selectEdCheckInPoint, setSelectEdCheckInPoint] = useState('')
 

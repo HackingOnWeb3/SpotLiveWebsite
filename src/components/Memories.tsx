@@ -1,3 +1,5 @@
+import ComponentChat from "./ComponentChat";
+
 export default function Memories() {
-  return <div>Memories</div>
+  return <div><ComponentChat></ComponentChat></div>
 }

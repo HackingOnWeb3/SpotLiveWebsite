@@ -42,6 +42,28 @@ export const getPriceByLive = async (contractAddr: string, params: any) => {
   return result
 }
 
+export const getUserTokenList = async (contractAddr: string, params: any) => {
+  console.log({ contractAddr, params })
+  const contract = getContract('SpotLive', contractAddr)
+  const result = await contract.methods.getUserTokenList(...params).call()
+  return result
+}
+
+export const tokenIdToScope = async (contractAddr: string, params: any) => {
+  console.log({ contractAddr, params })
+  const contract = getContract('SpotLive', contractAddr)
+  const result = await contract.methods.tokenIdToScope(...params).call()
+  return result
+}
+
+export const tokenPoints = async (contractAddr: string, params: any) => {
+  console.log({ contractAddr, params })
+  const contract = getContract('SpotLive', contractAddr)
+  const result = await contract.methods.tokenPoints(...params).call()
+  return result
+}
+
+
 export const checkIn = async (contractAddr: string, params: any) => {
   return executeMethod('SpotLive', contractAddr, 'checkIn', params)
 }

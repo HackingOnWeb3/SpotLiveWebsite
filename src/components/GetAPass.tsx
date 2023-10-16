@@ -3,7 +3,6 @@ import { Button } from "./ui/button";
 export default function GetAPass() {
   return (
     <div className=" text-center">
-      <div className="text-3xl">Get a Pass</div>
       <div className="flex mb-10">
         <div className=" w-1/3">
           <div className="text-gray-400 mb-3">Total Minted Pass</div>

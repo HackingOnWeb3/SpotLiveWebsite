@@ -10,6 +10,7 @@ import Image from 'next/image'
 import Jazzicon from 'react-jazzicon'
 import useUserName from '@/hooks/useUserName'
 import EditUsernameDialog from './EditUsernameDialog'
+import usePassesList from '@/hooks/usePassesList'
 
 export default function Wallet() {
   const { account, balance } = useAccountStore((state) => state)
@@ -34,6 +35,8 @@ export default function Wallet() {
 
   const [showEeditUsername, setEditUsername] = useState(false)
 
+  const passesList = usePassesList()
+
   return (
     <div className=" relative" ref={ref}>
       <Button
@@ -56,7 +59,7 @@ export default function Wallet() {
       )}
       {showDialog && (
         <div className=" w-96 h-[500px] absolute top-14 right-0 border-primary border border-solid p-2 rounded-lg bg-white">
-          <div className='mb-1'>
+          <div className="mb-1">
             <div className="flex items-center">
               <Jazzicon diameter={30} seed={parseInt(account)} />
               <span className="pl-2">{formatAddress(account)}</span>
@@ -77,7 +80,7 @@ export default function Wallet() {
             ></Image>
           </div>
           <div className="mb-6 flex items-center">
-            <span className='text-sm pr-2'>Balance:</span> {balance}
+            <span className="text-sm pr-2">Balance:</span> {balance}
           </div>
           <div>
             <Tabs value={selectTab} className="w-full">
@@ -85,7 +88,7 @@ export default function Wallet() {
                 <TabsTrigger
                   onClick={() => setSelectTab('Passes')}
                   value="Passes"
-                  className='w-full'
+                  className="w-full"
                 >
                   Passes
                 </TabsTrigger>
@@ -97,7 +100,31 @@ export default function Wallet() {
                 </TabsTrigger> */}
               </TabsList>
               <TabsContent value="Passes">
-                <div>passes list</div>
+                <div className=" h-[310px] overflow-y-auto">
+                  {passesList.length === 0 ? (
+                    <div className=" text-center mt-6 ">No passes yet</div>
+                  ) : (
+                    <div>
+                      {passesList.map((item) => {
+                        return (
+                          <div
+                            key={item.key}
+                            className="mb-2 bg-gray-300 rounded p-2"
+                          >
+                            <div className="mb-2">{item.name} #{item.key}</div>
+                            <div className="mb-2">
+                              {item.num1}/{item.num2} question left
+                            </div>
+                            <div>
+                              <Button className=" mr-2">Ask</Button>
+                              <Button disabled>Recharge</Button>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
               </TabsContent>
               <TabsContent value="Transactions">
                 <div className=" h-[310px] overflow-y-auto">

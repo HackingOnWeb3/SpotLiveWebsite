@@ -26,7 +26,7 @@ function getGeoLoaction() {
         resolve(position)
       },
       () => {
-        reject('Unable to retrieve your location')
+        reject(new Error('Unable to retrieve your location'))
       }
     )
   })

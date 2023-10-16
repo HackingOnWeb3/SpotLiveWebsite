@@ -40,7 +40,7 @@ export default function useOriginList() {
                     symbol: s[0][1],
                     // lat: s[1][0] / 10 ** 6,
                     // lng: s[1][1] / 10 ** 6,
-                    status: Number(s[0][3]) > Date.now() ? 'Ongoing' : 'End',
+                    status: Number(s[0][3]) > Date.now() ? 'Ongoing ' : 'End',
                     key: s[1][4],
                     lat: 30.233629,
                     lng: 120.193728,
