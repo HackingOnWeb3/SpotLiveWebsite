@@ -17,16 +17,6 @@ export default function Header() {
 
   const isClient = useIsClient();
 
-  function connect() {
-    const ethereum = getEthereum();
-
-    if (!ethereum) {
-      window.open('https://metamask.io/', 'blank');
-      return;
-    }
-    connectToWallect();
-  }
-
   console.log('chainId', chainId)
 
   return (
@@ -60,7 +50,7 @@ export default function Header() {
               {account ? (
                 <Wallet></Wallet>
               ) : (
-                <Button className="ml-3" onClick={connect}>
+                <Button className="ml-3" onClick={connectToWallect}>
                   Connect
                 </Button>
               )}

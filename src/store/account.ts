@@ -3,6 +3,7 @@ import { getEthereum, getWeb3 } from '../eth'
 import { accuracy } from '../utils'
 import { IS_CONNECT_STORAGE_KEY } from '@/utils/config'
 import { useEffect } from 'react'
+import { connect, disconnect } from 'starknetkit'
 // import { switchToChain } from '@/components/SwitchChainDialog'
 
 interface AccountState {
@@ -27,21 +28,17 @@ export const useAccountStore = create<AccountState>((set, get) => ({
   connectToWallect: async () => {
     try {
       set(() => ({ connectLoading: true }))
-      const ethereum = getEthereum()
-      if (!ethereum) {
-        set(() => ({ connectLoading: false }))
-        return
+      const { wallet } = await connect({
+        webWalletUrl: 'https://web.argent.xyz',
+      })
+
+      if (wallet && wallet.isConnected) {
+        // setConnection(wallet)
+        // setAccount(wallet.account)
+        set(() => ({ account: wallet.selectedAddress, chainId: '' }))
+        get().toggleBalance()
+        localStorage.setItem(IS_CONNECT_STORAGE_KEY, '1')
       }
-      let accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      })
-      const chainId = await ethereum.request({
-        method: 'eth_chainId',
-      })
-      set(() => ({ account: accounts[0], chainId }))
-      get().toggleBalance()
-      localStorage.setItem(IS_CONNECT_STORAGE_KEY, '1')
-      console.log(chainId)
       set(() => ({ connectLoading: false }))
     } catch (error) {
       set(() => ({ connectLoading: false }))
